@@ -3,147 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Produk - Kopi Nusantara</title>
+    <title>Daftar Menu - Kopi Nusantara</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f4f1ea; font-family: 'Segoe UI', sans-serif; }
-        
-        /* Navbar Styling */
-        .navbar-brand { font-weight: bold; letter-spacing: 1px; }
-
-        /* Card Styling */
-        .card-produk { 
-            border: none; 
-            border-radius: 15px; 
-            transition: 0.3s; 
-            height: 100%; 
-            display: flex; 
-            flex-direction: column; 
-            background: #fff;
-        }
-        .card-produk:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15); 
-        }
-
-        /* Image Styling */
-        .img-container { 
-            height: 160px; 
-            overflow: hidden; 
-            border-top-left-radius: 15px; 
-            border-top-right-radius: 15px; 
-        }
-        .img-container img { 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-        }
-
-        /* Button & Form Styling */
-        .price-tag { color: #8b4513; font-weight: bold; font-size: 1.1rem; }
-        .btn-wa { 
-            background-color: #25d366; 
-            color: white; 
-            font-weight: bold; 
-            border-radius: 10px; 
-            border: none;
-            transition: 0.2s;
-        }
-        .btn-wa:hover { background-color: #128c7e; color: white; }
-        .form-select-sm { border-radius: 8px; cursor: pointer; }
+        body { background-color: #f4f1ea; }
+        .card-produk { border: none; border-radius: 15px; overflow: hidden; }
+        .img-container { height: 150px; overflow: hidden; }
+        .img-container img { width: 100%; height: 100%; object-fit: cover; }
+        .counter-btn { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #ddd; background: white; font-weight: bold; }
+        .total-sticky { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 15px; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); z-index: 1000; }
     </style>
 </head>
-<body>
+<body class="pb-5">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top shadow">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
-        <a class="navbar-brand" href="index.html">☕ KOPI NUSANTARA</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-                <li class="nav-item"><a class="nav-link active" href="produk.html">Katalog Produk</a></li>
-            </ul>
+        <a class="navbar-brand fw-bold" href="index.html">☕ KOPI NUSANTARA</a>
+        <div class="ms-auto">
+            <a href="index.html" class="text-white text-decoration-none">Home</a>
         </div>
     </div>
 </nav>
 
-<div class="container my-5">
-    <div class="text-center mb-5">
-        <h2 class="fw-bold text-dark">Menu Spesial Kami</h2>
-        <p class="text-muted">Pilih selera Anda dan pesan langsung via WhatsApp</p>
-    </div>
+<div class="container">
+    <h3 class="fw-bold mb-4">Daftar Menu</h3>
 
-    <div class="row g-3 g-md-4">
-        
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-produk shadow-sm">
-                <div class="img-container">
+    <div class="row g-3">
+        <div class="col-12 col-md-6 mb-3">
+            <div class="card card-produk shadow-sm d-flex flex-row">
+                <div class="img-container" style="width: 120px; height: 120px;">
                     <img src="img/espresso.jpg" alt="Espresso">
                 </div>
-                <div class="card-body p-3 d-flex flex-column">
+                <div class="card-body p-3">
                     <h6 class="fw-bold mb-1">Espresso Gayo</h6>
-                    <p class="price-tag mb-2">Rp 15.000</p>
-                    
-                    <label class="small text-muted mb-1">Suhu:</label>
-                    <select class="form-select form-select-sm mb-3" id="suhu-espresso">
-                        <option value="Panas">🔥 Panas</option>
-                        <option value="Dingin">❄️ Dingin</option>
+                    <p class="text-success small fw-bold mb-2">Rp <span class="harga">15000</span></p>
+                    <select class="form-select form-select-sm mb-2 suhu" style="width: 100px;">
+                        <option value="Panas">Panas</option>
+                        <option value="Dingin">Dingin</option>
                     </select>
-
-                    <button onclick="kirimPesan('Espresso Gayo', 'suhu-espresso')" class="btn btn-wa w-100 mt-auto">Pesan</button>
+                    <div class="d-flex align-items-center">
+                        <button class="counter-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="mx-3 fw-bold qty">0</span>
+                        <button class="counter-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-produk shadow-sm">
-                <div class="img-container">
-                    <img src="img/americano.jpg" alt="Americano">
+        <div class="col-12 col-md-6 mb-3">
+            <div class="card card-produk shadow-sm d-flex flex-row">
+                <div class="img-container" style="width: 120px; height: 120px;">
+                    <img src="img/latte.jpg" alt="Latte">
                 </div>
-                <div class="card-body p-3 d-flex flex-column">
-                    <h6 class="fw-bold mb-1">Americano</h6>
-                    <p class="price-tag mb-2">Rp 18.000</p>
-                    
-                    <label class="small text-muted mb-1">Suhu:</label>
-                    <select class="form-select form-select-sm mb-3" id="suhu-americano">
-                        <option value="Panas">🔥 Panas</option>
-                        <option value="Dingin">❄️ Dingin</option>
-                    </select>
-
-                    <button onclick="kirimPesan('Americano', 'suhu-americano')" class="btn btn-wa w-100 mt-auto">Pesan</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-6 col-md-4 col-lg-3">
-            <div class="card card-produk shadow-sm">
-                <div class="img-container">
-                    <img src="img/latte.jpg" alt="Caffe Latte">
-                </div>
-                <div class="card-body p-3 d-flex flex-column">
+                <div class="card-body p-3">
                     <h6 class="fw-bold mb-1">Caffe Latte</h6>
-                    <p class="price-tag mb-2">Rp 22.000</p>
-                    
-                    <label class="small text-muted mb-1">Suhu:</label>
-                    <select class="form-select form-select-sm mb-3" id="suhu-latte">
-                        <option value="Panas">🔥 Panas</option>
-                        <option value="Dingin">❄️ Dingin</option>
+                    <p class="text-success small fw-bold mb-2">Rp <span class="harga">22000</span></p>
+                    <select class="form-select form-select-sm mb-2 suhu" style="width: 100px;">
+                        <option value="Panas">Panas</option>
+                        <option value="Dingin">Dingin</option>
                     </select>
-
-                    <button onclick="kirimPesan('Caffe Latte', 'suhu-latte')" class="btn btn-wa w-100 mt-auto">Pesan</button>
+                    <div class="d-flex align-items-center">
+                        <button class="counter-btn" onclick="updateQty(this, -1)">-</button>
+                        <span class="mx-3 fw-bold qty">0</span>
+                        <button class="counter-btn" onclick="updateQty(this, 1)">+</button>
+                    </div>
                 </div>
             </div>
         </div>
+    </div>
+</div>
 
+<div class="total-sticky">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <p class="small text-muted mb-0">Total Pembayaran</p>
+            <h4 class="fw-bold text-dark mb-0">Rp <span id="grand-total">0</span></h4>
+        </div>
+        <button class="btn btn-success btn-lg px-4 fw-bold" onclick="kirimStruk()">PESAN SEKARANG</button>
     </div>
 </div>
 
 <script>
-    function kirimPesan(namaKopi, idSuhu) {
-        var suhuPilihan = document.getElementById(idSuhu).value;
+    function updateQty(btn, change) {
+        const parent = btn.closest('.card-body');
+        let qtySpan = parent.querySelector('.qty');
+        let currentQty = parseInt(qtySpan.innerText);
+        
+        currentQty += change;
+        if (currentQty < 0) currentQty = 0;
+        qtySpan.innerText = currentQty;
+        
+        hitungTotal();
+    }
+
+    function hitungTotal() {
+        let total = 0;
+        document.querySelectorAll('.card-body').forEach(item => {
+            const harga = parseInt(item.querySelector('.harga').innerText);
+            const qty = parseInt(item.querySelector('.qty').innerText);
+            total += harga * qty;
+        });
+        document.getElementById('grand-total').innerText = total.toLocaleString('id-ID');
+    }
+
+    function kirimStruk() {
+        let struk = "📄 *STRUK PESANAN KOPI NUSANTARA*\\n\\n";
+        let hasOrder = false;
+        let total = 0;
+
+        document.querySelectorAll('.card-body').forEach(item => {
+            const nama = item.querySelector('h6').innerText;
+            const qty = parseInt(item.querySelector('.qty').innerText);
+            const harga = parseInt(item.querySelector('.harga').innerText);
+            const suhu = item.querySelector('.suhu').value;
+
+            if (qty > 0) {
+                let subtotal = qty * harga;
+                struk += `✅ *${nama}*\\n   ${qty} x Rp ${harga.toLocaleString('id-ID')} (${suhu})\\n   Subtotal: Rp ${subtotal.toLocaleString('id-ID')}\\n\\n`;
+                total += subtotal;
+                hasOrder = true;
+            }
+        });
+
+        if (!hasOrder) {
+            alert("Silakan pilih minimal 1 kopi!");
+            return;
+        }
+
+        struk += `*TOTAL PEMBAYARAN: Rp ${total.toLocaleString('id-ID')}*\\n\\nTerima kasih sudah memesan!`;
+        
+        const nomorWA = "6282184938376"; // Ganti nomor Anda
+        window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(struk.replace(/\\n/g, '\n'))}`, '_blank');
+    }
+</script>
+
+</body>
+</html>        var suhuPilihan = document.getElementById(idSuhu).value;
         var nomorAdmin = "628123456789"; // GANTI DENGAN NOMOR WA ANDA
         
         var teks = "Halo Admin, saya ingin pesan " + namaKopi + " (" + suhuPilihan + ")";
