@@ -6,66 +6,85 @@
     <title>Daftar Menu - Kopi Nusantara</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body { background-color: #f4f1ea; }
-        .card-produk { border: none; border-radius: 15px; overflow: hidden; }
-        .img-container { height: 150px; overflow: hidden; }
+        body { background-color: #f4f1ea; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .card-produk { border: none; border-radius: 15px; overflow: hidden; background: #fff; }
+        .img-container { width: 110px; height: 110px; overflow: hidden; border-radius: 12px; }
         .img-container img { width: 100%; height: 100%; object-fit: cover; }
-        .counter-btn { width: 35px; height: 35px; border-radius: 50%; border: 1px solid #ddd; background: white; font-weight: bold; }
-        .total-sticky { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 15px; box-shadow: 0 -5px 15px rgba(0,0,0,0.1); z-index: 1000; }
+        .counter-btn { 
+            width: 32px; height: 32px; border-radius: 8px; 
+            border: 1px solid #8b4513; background: white; 
+            color: #8b4513; font-weight: bold; 
+        }
+        .counter-btn:active { background: #8b4513; color: white; }
+        .total-sticky { 
+            position: fixed; bottom: 0; left: 0; right: 0; 
+            background: #fff; padding: 15px; 
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1); z-index: 1000; 
+            border-top: 3px solid #8b4513;
+        }
+        .qty { min-width: 30px; text-align: center; display: inline-block; }
     </style>
 </head>
 <body class="pb-5">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
     <div class="container">
         <a class="navbar-brand fw-bold" href="index.html">☕ KOPI NUSANTARA</a>
         <div class="ms-auto">
-            <a href="index.html" class="text-white text-decoration-none">Home</a>
+            <a href="index.html" class="btn btn-outline-light btn-sm">Kembali ke Home</a>
         </div>
     </div>
 </nav>
 
-<div class="container">
-    <h3 class="fw-bold mb-4">Daftar Menu</h3>
+<div class="container mb-5">
+    <h4 class="fw-bold mb-4 text-dark">Pilih Menu Favorit</h4>
 
     <div class="row g-3">
-        <div class="col-12 col-md-6 mb-3">
-            <div class="card card-produk shadow-sm d-flex flex-row">
-                <div class="img-container" style="width: 120px; height: 120px;">
-                    <img src="img/espresso.jpg" alt="Espresso">
-                </div>
-                <div class="card-body p-3">
-                    <h6 class="fw-bold mb-1">Espresso Gayo</h6>
-                    <p class="text-success small fw-bold mb-2">Rp <span class="harga">15000</span></p>
-                    <select class="form-select form-select-sm mb-2 suhu" style="width: 100px;">
-                        <option value="Panas">Panas</option>
-                        <option value="Dingin">Dingin</option>
-                    </select>
-                    <div class="d-flex align-items-center">
-                        <button class="counter-btn" onclick="updateQty(this, -1)">-</button>
-                        <span class="mx-3 fw-bold qty">0</span>
-                        <button class="counter-btn" onclick="updateQty(this, 1)">+</button>
+        <div class="col-12 col-md-6">
+            <div class="card card-produk shadow-sm p-2">
+                <div class="d-flex align-items-center">
+                    <div class="img-container shadow-sm">
+                        <img src="img/espresso.jpg" alt="Espresso">
+                    </div>
+                    <div class="card-body py-1 px-3">
+                        <h6 class="fw-bold mb-1">Espresso Gayo</h6>
+                        <p class="text-secondary small mb-2">Rp <span class="harga">15000</span></p>
+                        <div class="d-flex align-items-center gap-2">
+                            <select class="form-select form-select-sm suhu" style="width: 90px;">
+                                <option value="Panas">Panas</option>
+                                <option value="Dingin">Dingin</option>
+                            </select>
+                            <div class="ms-auto d-flex align-items-center">
+                                <button class="counter-btn" onclick="updateQty(this, -1)">-</button>
+                                <span class="mx-2 fw-bold qty text-dark">0</span>
+                                <button class="counter-btn" onclick="updateQty(this, 1)">+</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-12 col-md-6 mb-3">
-            <div class="card card-produk shadow-sm d-flex flex-row">
-                <div class="img-container" style="width: 120px; height: 120px;">
-                    <img src="img/latte.jpg" alt="Latte">
-                </div>
-                <div class="card-body p-3">
-                    <h6 class="fw-bold mb-1">Caffe Latte</h6>
-                    <p class="text-success small fw-bold mb-2">Rp <span class="harga">22000</span></p>
-                    <select class="form-select form-select-sm mb-2 suhu" style="width: 100px;">
-                        <option value="Panas">Panas</option>
-                        <option value="Dingin">Dingin</option>
-                    </select>
-                    <div class="d-flex align-items-center">
-                        <button class="counter-btn" onclick="updateQty(this, -1)">-</button>
-                        <span class="mx-3 fw-bold qty">0</span>
-                        <button class="counter-btn" onclick="updateQty(this, 1)">+</button>
+        <div class="col-12 col-md-6">
+            <div class="card card-produk shadow-sm p-2">
+                <div class="d-flex align-items-center">
+                    <div class="img-container shadow-sm">
+                        <img src="img/latte.jpg" alt="Latte">
+                    </div>
+                    <div class="card-body py-1 px-3">
+                        <h6 class="fw-bold mb-1">Caffe Latte</h6>
+                        <p class="text-secondary small mb-2">Rp <span class="harga">22000</span></p>
+                        <div class="d-flex align-items-center gap-2">
+                            <select class="form-select form-select-sm suhu" style="width: 90px;">
+                                <option value="Panas">Panas</option>
+                                <option value="Dingin">Dingin</option>
+                            </select>
+                            <div class="ms-auto d-flex align-items-center">
+                                <button class="counter-btn" onclick="updateQty(this, -1)">-</button>
+                                <span class="mx-2 fw-bold qty text-dark">0</span>
+                                <button class="counter-btn" onclick="updateQty(this, 1)">+</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -76,10 +95,12 @@
 <div class="total-sticky">
     <div class="container d-flex justify-content-between align-items-center">
         <div>
-            <p class="small text-muted mb-0">Total Pembayaran</p>
-            <h4 class="fw-bold text-dark mb-0">Rp <span id="grand-total">0</span></h4>
+            <p class="small text-muted mb-0">Total Harga</p>
+            <h4 class="fw-bold text-success mb-0">Rp <span id="grand-total">0</span></h4>
         </div>
-        <button class="btn btn-success btn-lg px-4 fw-bold" onclick="kirimStruk()">PESAN SEKARANG</button>
+        <button class="btn btn-success px-4 py-2 fw-bold rounded-pill shadow" onclick="kirimStruk()">
+            PESAN SEKARANG
+        </button>
     </div>
 </div>
 
@@ -107,7 +128,16 @@
     }
 
     function kirimStruk() {
-        let struk = "📄 *STRUK PESANAN KOPI NUSANTARA*\\n\\n";
+        const sekarang = new Date();
+        const opsiTanggal = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+        const tanggalWaktu = sekarang.toLocaleDateString('id-ID', opsiTanggal);
+
+        let struk = "━━━━━━━━━━━━━━━━━━━━\\n";
+        struk += "☕ *KOPI NUSANTARA*\\n";
+        struk += "━━━━━━━━━━━━━━━━━━━━\\n";
+        struk += `📅 Tanggal: ${tanggalWaktu}\\n`;
+        struk += "━━━━━━━━━━━━━━━━━━━━\\n\\n";
+
         let hasOrder = false;
         let total = 0;
 
@@ -119,23 +149,30 @@
 
             if (qty > 0) {
                 let subtotal = qty * harga;
-                struk += `✅ *${nama}*\\n   ${qty} x Rp ${harga.toLocaleString('id-ID')} (${suhu})\\n   Subtotal: Rp ${subtotal.toLocaleString('id-ID')}\\n\\n`;
+                struk += `*${nama}*\\n`;
+                struk += `  ${qty} x Rp ${harga.toLocaleString('id-ID')} (${suhu})\\n`;
+                struk += `  Subtotal: Rp ${subtotal.toLocaleString('id-ID')}\\n\\n`;
                 total += subtotal;
                 hasOrder = true;
             }
         });
 
         if (!hasOrder) {
-            alert("Silakan pilih minimal 1 kopi!");
+            alert("Silakan pilih minimal 1 item!");
             return;
         }
 
-        struk += `*TOTAL PEMBAYARAN: Rp ${total.toLocaleString('id-ID')}*\\n\\nTerima kasih sudah memesan!`;
+        struk += "━━━━━━━━━━━━━━━━━━━━\\n";
+        struk += `*TOTAL BAYAR: Rp ${total.toLocaleString('id-ID')}*\\n`;
+        struk += "━━━━━━━━━━━━━━━━━━━━\\n\\n";
+        struk += "_Mohon tunggu konfirmasi Admin untuk proses pembayaran. Terima kasih!_";
         
-        const nomorWA = "6282184938376"; // Ganti nomor Anda
-        window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(struk.replace(/\\n/g, '\n'))}`, '_blank');
+        const nomorWA = "6282184938376"; // GANTI NOMOR ANDA DI SINI
+        const urlFinal = `https://wa.me/${nomorWA}?text=${encodeURIComponent(struk.replace(/\\n/g, '\n'))}`;
+        window.open(urlFinal, '_blank');
     }
 </script>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html>
+                                </html>
