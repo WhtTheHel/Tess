@@ -142,11 +142,11 @@
         const tanggalWaktu = sekarang.toLocaleDateString('id-ID', opsiTanggal);
 
         let struk = "==========================\\n";
-        struk += "          *KOPI NUSANTARA* \\n";
+        struk += "        ☕ *KOPI NUSANTARA* \\n";
         struk += "==========================\\n";
         struk += `👤 Pelanggan: *${namaUser}*\\n`;
         struk += `📅 ${tanggalWaktu}\\n`;
-        struk += "------------------------------------------\\n\\n";
+        struk += "----------------------------------------------\\n\\n";
 
         let hasOrder = false;
         let total = 0;
@@ -171,9 +171,9 @@
             return;
         }
 
-        struk += "------------------------------------------\\n";
+        struk += "-------------------------------------------\\n";
         struk += `*TOTAL BAYAR : Rp ${total.toLocaleString('id-ID')}*\\n`;
-        struk += "------------------------------------------\\n\\n";
+        struk += "-------------------------------------------\\n\\n";
         struk += "         *TERIMA KASIH* \\n";
         struk += "   Sudah Menikmati Kopi Kami   \\n";
         struk += "==========================\\n";
