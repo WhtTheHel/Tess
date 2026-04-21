@@ -146,7 +146,7 @@
         struk += "==========================\\n";
         struk += `👤 Pelanggan: *${namaUser}*\\n`;
         struk += `📅 ${tanggalWaktu}\\n`;
-        struk += "----------------------------------------------\\n\\n";
+        struk += "------------------------------------------------\\n\\n";
 
         let hasOrder = false;
         let total = 0;
@@ -159,7 +159,7 @@
 
             if (qty > 0) {
                 let subtotal = qty * harga;
-                struk += `*${nama}* (${suhu})\\n`;
+                struk += `✅*${nama}* (${suhu})\\n`;
                 struk += `   ${qty} x ${harga.toLocaleString('id-ID')} -> Rp ${subtotal.toLocaleString('id-ID')}\\n\\n`;
                 total += subtotal;
                 hasOrder = true;
@@ -174,7 +174,7 @@
         struk += "-------------------------------------------\\n";
         struk += `*TOTAL BAYAR : Rp ${total.toLocaleString('id-ID')}*\\n`;
         struk += "-------------------------------------------\\n\\n";
-        struk += "         *TERIMA KASIH* \\n";
+        struk += "            *TERIMA KASIH* \\n";
         struk += "   Sudah Menikmati Kopi Kami   \\n";
         struk += "==========================\\n";
         
