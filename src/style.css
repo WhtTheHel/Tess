@@ -1,0 +1,215 @@
+:root {
+    --kopi: #8b4513;
+    --kopi-dark: #5d2e0d;
+    --kopi-light: #f4f1ea;
+    --kopi-cream: #fff9f0;
+}
+
+body {
+    background-color: var(--kopi-light);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.pexels.com/photos/1695052/pexels-photo-1695052.jpeg?auto=compress&cs=tinysrgb&w=1920');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.brand-name {
+    font-size: 4rem;
+    font-weight: bold;
+    letter-spacing: 5px;
+}
+
+/* Produk */
+.card-produk {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    background: #fff;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card-produk:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1) !important;
+}
+
+.img-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 12px;
+    flex-shrink: 0;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-tambah {
+    background-color: var(--kopi);
+    color: white;
+    border: none;
+    border-radius: 20px;
+    padding: 5px 15px;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.btn-tambah:hover {
+    background-color: var(--kopi-dark);
+    color: white;
+}
+
+.total-sticky {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: #fff;
+    padding: 15px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+    z-index: 1000;
+    border-top: 3px solid var(--kopi);
+}
+
+.form-label {
+    font-weight: bold;
+    color: #444;
+}
+
+#info-rekening {
+    font-size: 0.85rem;
+    color: var(--kopi);
+    background: var(--kopi-cream);
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px dashed var(--kopi);
+    margin-top: 10px;
+    display: none;
+}
+
+.keranjang-item {
+    font-size: 0.9rem;
+    border-bottom: 1px solid #eee;
+    padding: 5px 0;
+}
+
+/* Login Page */
+.login-page {
+    background-color: var(--kopi-light);
+    min-height: 100vh;
+}
+
+.login-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 56px);
+    padding: 24px 16px;
+}
+
+.login-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(139, 69, 19, 0.12);
+    padding: 40px 32px;
+    width: 100%;
+    max-width: 420px;
+    animation: slideUp 0.4s ease-out;
+}
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 32px;
+}
+
+.login-icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--kopi-cream);
+    color: var(--kopi);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+}
+
+.login-card .form-control {
+    border-radius: 12px;
+    border: 1.5px solid #e0d6cc;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-card .form-control:focus {
+    border-color: var(--kopi);
+    box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.12);
+}
+
+.btn-kopi {
+    background-color: var(--kopi);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-kopi:hover {
+    background-color: var(--kopi-dark);
+    color: #fff;
+}
+
+.btn-kopi:active {
+    transform: scale(0.98);
+}
+
+.link-kopi {
+    color: var(--kopi);
+    text-decoration: none;
+}
+
+.link-kopi:hover {
+    color: var(--kopi-dark);
+}
+
+.btn-toggle-password {
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.btn-toggle-password:hover .eye-icon {
+    fill: var(--kopi);
+}
+
+@media (max-width: 576px) {
+    .login-card {
+        padding: 32px 20px;
+    }
+    .brand-name {
+        font-size: 2.5rem;
+        letter-spacing: 3px;
+    }
+}
