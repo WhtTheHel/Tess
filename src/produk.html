@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Menu - Kopi Nusantara</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="pb-5">
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">KOPI NUSANTARA</a>
+        <div class="d-flex align-items-center gap-3">
+            <a href="/login.html" class="btn btn-outline-light btn-sm rounded-pill px-3" id="nav-auth-btn">Masuk</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container mb-5 pb-5">
+    <div class="bg-white p-3 rounded-4 shadow-sm mb-4">
+        <div class="row">
+            <div class="col-md-6 mb-3 mb-md-0">
+                <label class="form-label">Nama Pemesan :</label>
+                <input type="text" id="nama-pembeli" class="form-control" placeholder="Nama Anda...">
+            </div>
+            <div class="col-md-6">
+                <label class="form-label">Metode Pembayaran :</label>
+                <select id="metode-bayar" class="form-select" onchange="tampilkanInfoBayar()">
+                    <option value="Tunai">Tunai / Cash</option>
+                    <option value="Transfer Bank">Transfer Bank (BCA)</option>
+                    <option value="DANA">DANA</option>
+                    <option value="ShopeePay">ShopeePay</option>
+                </select>
+                <div id="info-rekening"></div>
+            </div>
+        </div>
+    </div>
+
+    <h5 class="fw-bold mb-3">Menu Kopi</h5>
+    <div class="row g-3" id="menu-list"></div>
+
+    <div class="mt-4 p-3 bg-white rounded-4 shadow-sm">
+        <h6 class="fw-bold border-bottom pb-2">Keranjang Anda:</h6>
+        <div id="daftar-keranjang">
+            <p class="text-muted small">Belum ada pesanan.</p>
+        </div>
+    </div>
+</div>
+
+<div class="total-sticky">
+    <div class="container d-flex justify-content-between align-items-center">
+        <div>
+            <p class="small text-muted mb-0">Total Harga</p>
+            <h4 class="fw-bold text-success mb-0">Rp <span id="grand-total">0</span></h4>
+        </div>
+        <button class="btn btn-success px-4 py-2 fw-bold rounded-pill shadow" onclick="kirimStruk()">
+            KONFIRMASI PESANAN
+        </button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="/main.js"></script>
+<script>
+const menu = [
+    { nama: "Espresso Gayo", harga: 15000, img: "espresso.jpg" },
+    { nama: "Caffe Latte", harga: 22000, img: "latte.jpg" },
+    { nama: "Cappuccino", harga: 22000, img: "cappuccino.jpg" },
+    { nama: "Americano", harga: 18000, img: "americano.jpg" },
+    { nama: "Kopi Arabika", harga: 16000, img: "arabika.jpg" },
+    { nama: "Mocha", harga: 24000, img: "mocha.jpg" },
+    { nama: "Flat White", harga: 23000, img: "flatwhite.jpg" },
+    { nama: "Macchiato", harga: 20000, img: "maccchiato.jpg" },
+    { nama: "Kopi Sanger", harga: 15000, img: "sanger.jpg" },
+    { nama: "Kopi Gula Aren", harga: 18000, img: "gulaaren.jpg" },
+    { nama: "Vanilla Latte", harga: 24000, img: "vanilla.jpg" },
+    { nama: "Caramel Latte", harga: 25000, img: "caramel.jpg" },
+    { nama: "Hazelnut Latte", harga: 25000, img: "hazelnut.jpg" },
+    { nama: "Kopi Panda", harga: 20000, img: "panda.jpg" },
+    { nama: "Coffee Float", harga: 22000, img: "float.jpg" },
+];
+
+const menuList = document.getElementById('menu-list');
+menu.forEach(item => {
+    menuList.innerHTML += `
+    <div class="col-12 col-md-6">
+        <div class="card card-produk shadow-sm p-2">
+            <div class="d-flex align-items-center">
+                <div class="img-container shadow-sm">
+                    <img src="/img/${item.img}" alt="${item.nama}">
+                </div>
+                <div class="card-body py-1 px-3">
+                    <h6 class="fw-bold mb-1 nama-prod">${item.nama}</h6>
+                    <p class="text-secondary small mb-2">Rp <span class="harga-prod">${item.harga}</span></p>
+                    <div class="d-flex align-items-center gap-2">
+                        <select class="form-select form-select-sm suhu-pilih" style="width: 90px;">
+                            <option value="Panas">Panas</option>
+                            <option value="Dingin">Dingin</option>
+                        </select>
+                        <button class="btn-tambah fw-bold" onclick="tambahKeKeranjang(this)">+ Tambah</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>`;
+});
+
+let keranjang = {};
+const daftarRekening = {
+    "Transfer Bank": "BCA: 1234567890 (A/N Kopi Nusantara)",
+    "DANA": "DANA: 082184938376 (A/N Kopi Nusantara)",
+    "ShopeePay": "ShopeePay: 082184938376 (A/N Kopi Nusantara)",
+    "Tunai": "Bayar Langsung di Kasir"
+};
+
+function tampilkanInfoBayar() {
+    const metode = document.getElementById('metode-bayar').value;
+    const boxInfo = document.getElementById('info-rekening');
+    boxInfo.style.display = "block";
+    boxInfo.innerHTML = "<strong>Tujuan:</strong> " + (daftarRekening[metode] || "");
+}
+window.onload = tampilkanInfoBayar;
+
+function tambahKeKeranjang(btn) {
+    const card = btn.closest('.card-body');
+    const nama = card.querySelector('.nama-prod').innerText;
+    const harga = parseInt(card.querySelector('.harga-prod').innerText);
+    const suhu = card.querySelector('.suhu-pilih').value;
+    const key = `${nama}-${suhu}`;
+
+    if (keranjang[key]) {
+        keranjang[key].qty += 1;
+    } else {
+        keranjang[key] = { nama, harga, suhu, qty: 1 };
+    }
+    updateTampilanKeranjang();
+}
+
+function hapusItem(key) {
+    delete keranjang[key];
+    updateTampilanKeranjang();
+}
+
+function updateTampilanKeranjang() {
+    const container = document.getElementById('daftar-keranjang');
+    const totalBayarElem = document.getElementById('grand-total');
+    container.innerHTML = "";
+    let total = 0;
+
+    Object.keys(keranjang).forEach(key => {
+        const item = keranjang[key];
+        const subtotal = item.qty * item.harga;
+        total += subtotal;
+
+        container.innerHTML += `
+            <div class="keranjang-item d-flex justify-content-between align-items-center">
+                <div>
+                    <strong>${item.nama}</strong> <span class="badge bg-secondary">${item.suhu}</span><br>
+                    <small>${item.qty} x Rp ${item.harga.toLocaleString('id-ID')}</small>
+                </div>
+                <div class="text-end">
+                    <span class="fw-bold">Rp ${subtotal.toLocaleString('id-ID')}</span>
+                    <button class="btn btn-sm text-danger ms-2" onclick="hapusItem('${key}')">&#10005;</button>
+                </div>
+            </div>
+        `;
+    });
+
+    if (Object.keys(keranjang).length === 0) {
+        container.innerHTML = '<p class="text-muted small">Belum ada pesanan.</p>';
+    }
+    totalBayarElem.innerText = total.toLocaleString('id-ID');
+}
+
+function kirimStruk() {
+    const namaUser = document.getElementById('nama-pembeli').value;
+    const metode = document.getElementById('metode-bayar').value;
+    const keys = Object.keys(keranjang);
+
+    if (!namaUser) { alert("Harap masukkan nama!"); return; }
+    if (keys.length === 0) { alert("Keranjang masih kosong!"); return; }
+
+    const tujuanBayar = daftarRekening[metode] || "Bayar di Kasir";
+    const sekarang = new Date();
+    const tanggalWaktu = sekarang.toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+    let struk = "==========================\n";
+    struk += "     KOPI NUSANTARA\n";
+    struk += "==========================\n";
+    struk += `Pelanggan : ${namaUser}\n`;
+    struk += `Tanggal   : ${tanggalWaktu}\n`;
+    struk += `Metode    : ${metode}\n`;
+    struk += `Tujuan    : ${tujuanBayar}\n`;
+    struk += "------------------------------------------\n\n";
+
+    let total = 0;
+    keys.forEach(key => {
+        const item = keranjang[key];
+        const subtotal = item.qty * item.harga;
+        total += subtotal;
+        struk += `*${item.nama}*\n`;
+        struk += `   (${item.suhu}) ${item.qty}x -> Rp ${subtotal.toLocaleString('id-ID')}\n\n`;
+    });
+
+    struk += "------------------------------------------\n";
+    struk += `TOTAL BAYAR : Rp ${total.toLocaleString('id-ID')}\n`;
+    struk += "------------------------------------------\n\n";
+    struk += "         TERIMA KASIH\n";
+    struk += "   Sudah Menikmati Kopi Kami\n";
+    struk += "==========================\n";
+
+    const nomorWA = "6282184938376";
+    window.open(`https://wa.me/${nomorWA}?text=${encodeURIComponent(struk)}`, '_blank');
+}
+</script>
+</body>
+</html>
+
