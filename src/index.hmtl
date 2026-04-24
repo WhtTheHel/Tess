@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kopi Nusantara | Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/">KOPI NUSANTARA</a>
+        <div class="d-flex align-items-center gap-3">
+            <a href="/login.html" class="btn btn-outline-light btn-sm rounded-pill px-3" id="nav-auth-btn">Masuk</a>
+        </div>
+    </div>
+</nav>
+
+<header class="hero">
+    <div class="container">
+        <h1 class="brand-name mb-2">KOPI NUSANTARA</h1>
+        <p class="lead mb-5 fs-4">Cita Rasa Autentik dari Biji Kopi Pilihan</p>
+        <a href="/produk.html" class="btn btn-warning btn-lg px-5 py-3 fw-bold rounded-pill shadow">LIHAT PRODUK</a>
+    </div>
+</header>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script type="module" src="/main.js"></script>
+</body>
+</html>
